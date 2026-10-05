@@ -20,7 +20,7 @@ def load_inventory():
         return None 
 
 def save_inventory(order):
-    with open(INVENTORY_FILE, "a+") as f:
+    with open(INVENTORY_FILE, "a") as f:
         f.write("\n" + order)
 
 
