@@ -107,4 +107,29 @@ def search_product(inventory):
 
     print("\nProduct not found.\n")
 
+print("=" * 40)
+print("INVENTORY MANAGEMENT SYSTEM")
+print("=" * 40 + "\n")
+inventory = load_inventory()
+print_menu()
+
+while True:
+    choice = input("Enter option: ").strip()
+
+    if choice == "1":
+        display_all(inventory)
+    elif choice == "2":
+        add_product(inventory)
+    elif choice == "3":
+        update_stock(inventory)
+    elif choice == "4":
+        search_product(inventory)
+    elif choice == "5":
+        save_inventory(inventory)
+    elif choice == "6":
+        save_inventory(inventory, is_exit=True)
+        print("Thank you for using Inventory Management System.")
+        print("Program terminated.")
+        break
+
 
