@@ -46,4 +46,65 @@ def print_menu():
 6. Exit""")
     print("-" * 40 + "\n")
 
+def display_all(inventory):
+    """Displays all products in the inventory."""
+    print("-" * 40)
+    print("Current Inventory")
+    for item in inventory:
+        print(f"ID: {item['id']} | Name: {item['name']} | Price: ${item['price']:.2f} | Stock: {item['stock']}")
+    print("-" * 40 + "\n")
+
+def add_product(inventory):
+    """Adds a new product to the inventory."""
+    print("Add New Product")
+    prod_id = input("Product ID: ").strip()
+    name = input("Product Name: ").strip()
+    price = float(input("Price: "))
+    stock = int(input("Stock Quantity: "))
+
+    new_product = {
+        "id": prod_id,
+        "name": name,
+        "price": price,
+        "stock": stock,
+    }
+    inventory.append(new_product)
+    print("\nProduct added successfully!\n")
+
+def update_stock(inventory):
+    """Updates stock quantity for an existing product."""
+    print("Update Stock")
+    prod_id = input("Enter Product ID: ").strip()
+
+    for item in inventory:
+        if item["id"].lower() == prod_id.lower():
+            print("\nProduct Found:")
+            print(f"Name: {item['name']}")
+            print(f"Current Stock: {item['stock']}\n")
+
+            new_stock = int(input("New Stock Quantity: "))
+            item["stock"] = new_stock
+            print("\nStock updated successfully!\n")
+            return
+
+    print("\nProduct not found.\n")
+
+def search_product(inventory):
+    """Searches for a product by ID."""
+    print("\nSearch Product")
+    prod_id = input("Enter Product ID: ").strip()
+
+    for item in inventory:
+        if item["id"].lower() == prod_id.lower():
+            print("\nProduct Found")
+            print("-" * 40)
+            print(f"ID: {item['id']}")
+            print(f"Name: {item['name']}")
+            print(f"Price: ${item['price']:.2f}")
+            print(f"Stock: {item['stock']}")
+            print("-" * 40 + "\n")
+            return
+
+    print("\nProduct not found.\n")
+
 
