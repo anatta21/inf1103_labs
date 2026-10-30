@@ -28,18 +28,3 @@ class Inventory:
     def get_products(self):
         # A copy, so callers can't modify the internal list
         return list(self.__products)
-
-#Testing inventory file
-if __name__ == "__main__":
-    from product_oop import Product
-
-    inventory = Inventory()
-    inventory.add_product(Product("P001", "Laptop", 1200.0, 15))
-    inventory.add_product(Product("P002", "Mouse", 25.5, 40))
-    print(inventory.add_product(Product("p001", "Duplicate", 1.0, 1)))  # False
-    inventory.display_all()
-
-    found = inventory.search_product("p002")
-    found.update_stock(10)
-    inventory.display_all()
-    print(inventory.search_product("P999"))  # None

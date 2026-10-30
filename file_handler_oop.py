@@ -44,10 +44,3 @@ def save_inventory(inventory, filename, is_exit=False):
             print("Inventory saved successfully.\n")
     except OSError:
         pass
-
-#Testing
-if __name__ == "__main__":
-    inv = load_inventory("inventory.json")
-    inv.display_all()
-    inv.search_product("123").update_stock(5)
-    save_inventory(inv, "test_output.json")

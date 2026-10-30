@@ -10,5 +10,11 @@
         "name": "Samsung Phone",
         "price": 1250.0,
         "stock": 1
+    },
+    {
+        "id": "90",
+        "name": "iPhone",
+        "price": 2300.0,
+        "stock": 2
     }
 ]
