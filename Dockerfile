@@ -1,4 +1,4 @@
-FROM python:3.14
-WORKDIR /app 
-COPY inventory_manager.py .
-CMD ["python", "inventory_manager.py"]
+FROM python:3.14-slim
+WORKDIR /app
+COPY main_oop.py .
+CMD ["python", "main_oop.py"]

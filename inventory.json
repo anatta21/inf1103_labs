@@ -16,5 +16,11 @@
         "name": "iPhone",
         "price": 2300.0,
         "stock": 2
+    },
+    {
+        "id": "8898",
+        "name": "Keyboard",
+        "price": 300.0,
+        "stock": 80
     }
 ]
