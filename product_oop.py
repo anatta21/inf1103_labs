@@ -19,7 +19,12 @@ class Product:
     def get_stock(self):
         return self.__stock
 
-#For Testing
-if __name__ == "__main__":
-    p = Product("P001", "Laptop", 1200.0, 15)
-    print(p.get_name(), p.get_stock())
+    def update_stock(self, quantity):
+        if quantity < 0:
+            return False
+        self.__stock = quantity
+        return True
+
+    def display_information(self):
+        print(f"ID: {self.__product_id} | Name: {self.__name} | "
+                f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
