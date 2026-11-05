@@ -1,26 +1,26 @@
 [
     {
-        "id": "1011",
-        "name": "Laptop",
-        "price": 1500.0,
-        "stock": 1
-    },
-    {
-        "id": "123",
-        "name": "Samsung Phone",
-        "price": 1250.0,
-        "stock": 1
-    },
-    {
-        "id": "90",
-        "name": "iPhone",
-        "price": 2300.0,
-        "stock": 2
-    },
-    {
-        "id": "8898",
+        "product_id": "P001",
         "name": "Keyboard",
-        "price": 300.0,
-        "stock": 80
+        "price": 49.99,
+        "stock_quantity": 20,
+        "type": "physical",
+        "weight": 0.8
+    },
+    {
+        "product_id": "D001",
+        "name": "Python Course",
+        "price": 29.99,
+        "stock_quantity": 100,
+        "type": "digital",
+        "download_size": 500.0
+    },
+    {
+        "product_id": "123",
+        "name": "Keyboard",
+        "price": 123.0,
+        "stock_quantity": 2,
+        "type": "physical",
+        "weight": 1.1
     }
 ]

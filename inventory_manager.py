@@ -24,11 +24,11 @@ def save_inventory(inventory, is_exit=False):
         print("\nSaving inventory...")
     else:
         print("\nSaving inventory before exit...")
-        
+
     try:
         with open(FILENAME, "w") as file:
             json.dump(inventory, file, indent=4)
-        
+
         if not is_exit:
             print("Inventory saved successfully to inventory.json.\n")
         else:
@@ -131,5 +131,3 @@ while True:
         print("Thank you for using Inventory Management System.")
         print("Program terminated.")
         break
-
-

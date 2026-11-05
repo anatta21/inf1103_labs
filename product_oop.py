@@ -1,30 +1,56 @@
-class Product:
-    """Responsibility: represent and manage ONE product."""
+from abc import ABC, abstractmethod
 
-    def __init__(self, product_id, name, price, stock):
-        self.__product_id = product_id
-        self.__name = name
-        self.__price = price
-        self.__stock = stock
 
-    def get_product_id(self):
-        return self.__product_id
+class Product(ABC):
+    """Abstract base class for all products."""
 
-    def get_name(self):
-        return self.__name
+    def __init__(self, product_id, name, price, stock_quantity):
+        self._product_id = product_id
+        self._name = name
+        self._price = price
+        self._stock_quantity = stock_quantity
 
-    def get_price(self):
-        return self.__price
+    @property
+    def product_id(self):
+        return self._product_id
 
-    def get_stock(self):
-        return self.__stock
+    @property
+    def name(self):
+        return self._name
 
-    def update_stock(self, quantity):
-        if quantity < 0:
-            return False
-        self.__stock = quantity
-        return True
+    @property
+    def price(self):
+        return self._price
+
+    @property
+    def stock_quantity(self):
+        return self._stock_quantity
+
+    def update_stock(self, change):
+        """Update product stock quantity."""
+        if self._stock_quantity + change < 0:
+            raise ValueError("Stock cannot go below zero.")
+
+        self._stock_quantity += change
 
     def display_information(self):
-        print(f"ID: {self.__product_id} | Name: {self.__name} | "
-                f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
+        """Display common product information."""
+        print(
+            f"ID: {self._product_id} | "
+            f"Name: {self._name} | "
+            f"Price: ${self._price:.2f} | "
+            f"Stock: {self._stock_quantity}"
+        )
+
+    def to_dict(self):
+        """Convert common product information into a dictionary."""
+        return {
+            "product_id": self._product_id,
+            "name": self._name,
+            "price": self._price,
+            "stock_quantity": self._stock_quantity
+        }
+
+    @abstractmethod
+    def get_fulfilment_info(self) -> str:
+        """Return product-specific fulfilment information."""

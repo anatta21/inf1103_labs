@@ -1,30 +1,61 @@
+
+import json
+import os
+
+from product_factory import product_from_dict
+
+
 class Inventory:
-    """Manage a collection of Products."""
+    """Manages Product objects."""
 
     def __init__(self):
-        self.__products = []
+        self._products = {}
 
     def add_product(self, product):
-        """Returns False if the ID already exists."""
-        if self.search_product(product.get_product_id()) is not None:
-            return False
-        self.__products.append(product)
-        return True
+        if product.product_id in self._products:
+            raise ValueError("A product with that ID already exists.")
 
-    def search_product(self, product_id):
-        """Return the Product with a matching ID (case-insensitive), else None."""
-        for product in self.__products:
-            if product.get_product_id().lower() == product_id.lower():
-                return product
-        return None
+        self._products[product.product_id] = product
 
     def display_all(self):
-        print("-" * 40)
-        print("Current Inventory")
-        for product in self.__products:
-            product.display_information()
-        print("-" * 40 + "\n")
+        if not self._products:
+            print("Inventory is empty.")
+            return
 
-    def get_products(self):
-        # A copy, so callers can't modify the internal list
-        return list(self.__products)
+        for product in self._products.values():
+            product.display_information()
+
+    def update_stock(self, product_id, change):
+        product = self.find(product_id)
+
+        if product is None:
+            raise ValueError("Product not found.")
+
+        product.update_stock(change)
+
+    def find(self, product_id):
+        return self._products.get(product_id)
+
+    def search_by_name(self, text):
+        return [
+            p for p in self._products.values()
+            if text.lower() in p.name.lower()
+        ]
+
+    def save(self, filename):
+        with open(filename, "w") as file:
+            json.dump(
+                [p.to_dict() for p in self._products.values()],
+                file,
+                indent=4
+            )
+
+    def load(self, filename):
+        if not os.path.exists(filename):
+            return
+
+        with open(filename) as file:
+            data = json.load(file)
+
+        for item in data:
+            self.add_product(product_from_dict(item))

@@ -1,109 +1,121 @@
-from digital_product_oop import DigitalProduct
-from file_handler_oop import load_inventory, save_inventory
-from physical_product_oop import PhysicalProduct
+from digital_product import DigitalProduct
+from inventory_oop import Inventory
+from physical_product import PhysicalProduct
 
-FILENAME = "inventory.json"
-
-
-def print_menu():
-    print("""----------MENU----------
-1. Display All Products
-2. Add Product
-3. Update Stock
-4. Search Product
-5. Save Inventory
-6. Exit""")
-    print("-" * 40 + "\n")
+DATA_FILE = "inventory.json"
 
 
-def add_product(inventory):
-    print("Add New Product")
-    kind = input("Type (1 = Physical, 2 = Digital): ").strip()
-    if kind not in ("1", "2"):
-        print("\nInvalid product type. Product not added.\n")
+def read_number(prompt, cast=float):
+    """Read and validate numeric input."""
+    while True:
+        try:
+            return cast(input(prompt))
+        except ValueError:
+            print("Please enter a valid number.")
+
+
+def add_product_flow(inventory):
+    """Handle adding a physical or digital product."""
+
+    kind = input("Type - (p)hysical or (d)igital: ").strip().lower()
+
+    if kind not in ("p", "d"):
+        print("Invalid type.")
         return
-    prod_id = input("Product ID: ").strip()
-    name = input("Product Name: ").strip()
-    try:
-        price = float(input("Price: "))
-        stock = int(input("Stock Quantity: "))
-        if kind == "1":
-            weight = float(input("Weight (kg): "))
-            product = PhysicalProduct(prod_id, name, price, stock, weight)
-        else:
-            size = float(input("Download size (MB): "))
-            product = DigitalProduct(prod_id, name, price, stock, size)
-    except ValueError:
-        print("\nInvalid number entered. Product not added.\n")
-        return
-    if inventory.add_product(product):
-        print("\nProduct added successfully!\n")
+
+    product_id = input("Product ID: ").strip()
+    name = input("Name: ").strip()
+
+    price = read_number("Price: ", float)
+    stock_quantity = read_number("Stock quantity: ", int)
+
+    if kind == "p":
+        weight = read_number("Weight (kg): ", float)
+
+        product = PhysicalProduct(
+            product_id,
+            name,
+            price,
+            stock_quantity,
+            weight
+        )
+
     else:
-        print("\nA product with that ID already exists.\n")
+        download_size = read_number("Download size (MB): ", float)
 
-def update_stock(inventory):
-    print("Update Stock")
-    product = inventory.search_product(input("Enter Product ID: ").strip())
-    if product is None:
-        print("\nProduct not found.\n")
-        return
+        product = DigitalProduct(
+            product_id,
+            name,
+            price,
+            stock_quantity,
+            download_size
+        )
 
-    print("\nProduct Found:")
-    print(f"Name: {product.get_name()}")
-    print(f"Current Stock: {product.get_stock()}\n")
-    try:
-        new_stock = int(input("New Stock Quantity: "))
-    except ValueError:
-        print("\nInvalid number entered.\n")
-        return
-
-    if product.update_stock(new_stock):
-        print("\nStock updated successfully!\n")
-    else:
-        print("\nStock cannot be negative.\n")
-
-
-def search_product(inventory):
-    print("\nSearch Product")
-    product = inventory.search_product(input("Enter Product ID: ").strip())
-    if product is None:
-        print("\nProduct not found.\n")
-        return
-
-    print("\nProduct Found")
-    print("-" * 40)
-    print(f"ID: {product.get_product_id()}")
-    print(f"Name: {product.get_name()}")
-    print(f"Price: ${product.get_price():.2f}")
-    print(f"Stock: {product.get_stock()}")
-    print("-" * 40 + "\n")
+    inventory.add_product(product)
+    print("Product added.")
 
 
 def main():
-    print("=" * 40)
-    print("INVENTORY MANAGEMENT SYSTEM")
-    print("=" * 40 + "\n")
-    inventory = load_inventory(FILENAME)
-    print_menu()
+    """Main program."""
+
+    inventory = Inventory()
+
+    try:
+        inventory.load(DATA_FILE)
+        print("Inventory loaded successfully.\n")
+
+    except (ValueError, OSError) as error:
+        print(f"Error loading inventory: {error}")
+        return
 
     while True:
-        choice = input("Enter option: ").strip()
+        print("\n1. Display all")
+        print("2. Add product")
+        print("3. Update stock")
+        print("4. Search product")
+        print("5. Save inventory")
+        print("6. Exit")
 
-        if choice == "1":
-            inventory.display_all()
-        elif choice == "2":
-            add_product(inventory)
-        elif choice == "3":
-            update_stock(inventory)
-        elif choice == "4":
-            search_product(inventory)
-        elif choice == "5":
-            save_inventory(inventory, FILENAME)
-        elif choice == "6":
-            save_inventory(inventory, FILENAME, is_exit=True)
-            print("Thank you for using Inventory Management System.")
-            print("Program terminated.")
-            break
+        choice = input("Choose: ").strip()
+
+        try:
+            if choice == "1":
+                inventory.display_all()
+
+            elif choice == "2":
+                add_product_flow(inventory)
+
+            elif choice == "3":
+                product_id = input("Product ID: ").strip()
+                change = read_number("Change (+/-): ", int)
+
+                inventory.update_stock(product_id, change)
+                print("Stock updated.")
+
+            elif choice == "4":
+                search_text = input("Name contains: ")
+                results = inventory.search_by_name(search_text)
+
+                if results:
+                    for product in results:
+                        product.display_information()
+                else:
+                    print("No matches.")
+
+            elif choice == "5":
+                inventory.save(DATA_FILE)
+                print("Inventory saved successfully.")
+
+            elif choice == "6":
+                inventory.save(DATA_FILE)
+                print("Saved. Goodbye!")
+                break
+
+            else:
+                print("Invalid choice.")
+
+        except (ValueError, OSError) as error:
+            print(f"Error: {error}")
 
 
 if __name__ == "__main__":

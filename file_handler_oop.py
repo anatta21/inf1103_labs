@@ -1,9 +1,22 @@
 import json
 import os
 
+from digital_product import DigitalProduct
 from inventory_oop import Inventory
-from product_oop import Product
+from physical_product import PhysicalProduct
 
+
+def create_product(item):
+    """Build the right Product subclass from a saved dict, using its 'type'."""
+    # Lab 6 files have no "type"; treat them as physical with unknown (0) weight.
+    product_type = item.get("type", PhysicalProduct.TYPE)
+    if product_type == PhysicalProduct.TYPE:
+        return PhysicalProduct(item["id"], item["name"], item["price"],
+                               item["stock"], item.get("weight", 0.0))
+    if product_type == DigitalProduct.TYPE:
+        return DigitalProduct(item["id"], item["name"], item["price"],
+                              item["stock"], item["download_size"])
+    raise ValueError(f"Unknown product type: {product_type}")
 
 def load_inventory(filename):
     """Loads inventory data if it exists; otherwise returns an empty Inventory."""
@@ -14,8 +27,7 @@ def load_inventory(filename):
                 print("inventory.json found.")
                 data = json.load(file)
             for item in data:
-                inventory.add_product(
-                    Product(item["id"], item["name"], item["price"], item["stock"]))
+                inventory.add_product(create_product(item))
             print("Inventory loaded successfully.\n")
         except (json.JSONDecodeError, OSError, KeyError):
             return Inventory()
