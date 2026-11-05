@@ -1,3 +1,33 @@
+commit c60fda71ad1ca2d81d698bbbaa6f1eda857c31ec
+Author: Sai Kyaw Min Thant <2603967@sit.singaporetech.edu.sg>
+Date:   Thu Nov 5 23:23:57 2026 +0800
+
+    Test all files and added gitIgnore file
+
+commit 89bfdceaf146996b63ce28108699690838da4205
+Author: Sai Kyaw Min Thant <2603967@sit.singaporetech.edu.sg>
+Date:   Thu Nov 5 22:35:39 2026 +0800
+
+    Test Digital and physical product files in main
+
+commit f29ead46211b9dbf73de9eae71e11230e26ad2df
+Author: Sai Kyaw Min Thant <2603967@sit.singaporetech.edu.sg>
+Date:   Thu Nov 5 22:28:27 2026 +0800
+
+    create digital product and test
+
+commit 585cff409940498fb2cc919a12798e7a3908b61e
+Author: Sai Kyaw Min Thant <2603967@sit.singaporetech.edu.sg>
+Date:   Thu Nov 5 22:25:17 2026 +0800
+
+    create physical product and test
+
+commit 28dc065153e9a7f8c5330a1b7aaebaffa36008d4
+Author: anatta21 <2603967@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 18:11:30 2026 +0800
+
+    Modified Dockerfile, inventory.json and output log file
+
 commit 8963bae95a7f2d4248b764004491dc64ec76fe49
 Author: anatta21 <2603967@sit.singaporetech.edu.sg>
 Date:   Fri Oct 30 18:05:03 2026 +0800
