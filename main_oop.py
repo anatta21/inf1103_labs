@@ -1,5 +1,6 @@
+from digital_product_oop import DigitalProduct
 from file_handler_oop import load_inventory, save_inventory
-from product_oop import Product
+from physical_product_oop import PhysicalProduct
 
 FILENAME = "inventory.json"
 
@@ -17,20 +18,28 @@ def print_menu():
 
 def add_product(inventory):
     print("Add New Product")
+    kind = input("Type (1 = Physical, 2 = Digital): ").strip()
+    if kind not in ("1", "2"):
+        print("\nInvalid product type. Product not added.\n")
+        return
     prod_id = input("Product ID: ").strip()
     name = input("Product Name: ").strip()
     try:
         price = float(input("Price: "))
         stock = int(input("Stock Quantity: "))
+        if kind == "1":
+            weight = float(input("Weight (kg): "))
+            product = PhysicalProduct(prod_id, name, price, stock, weight)
+        else:
+            size = float(input("Download size (MB): "))
+            product = DigitalProduct(prod_id, name, price, stock, size)
     except ValueError:
         print("\nInvalid number entered. Product not added.\n")
         return
-
-    if inventory.add_product(Product(prod_id, name, price, stock)):
+    if inventory.add_product(product):
         print("\nProduct added successfully!\n")
     else:
         print("\nA product with that ID already exists.\n")
-
 
 def update_stock(inventory):
     print("Update Stock")

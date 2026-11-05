@@ -14,9 +14,3 @@ class PhysicalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"   Type: Physical | Weight: {self.__weight} kg")
-
-#Test
-if __name__ == "__main__":
-    # Runs only when you execute this file directly, not when it is imported
-    guitar = PhysicalProduct("P001", "Guitar", 499.99, 5, 3.5)
-    guitar.display_information()

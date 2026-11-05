@@ -14,8 +14,3 @@ class DigitalProduct(Product):
     def display_information(self):
         super().display_information()
         print(f"   Type: Digital | Download size: {self.__download_size} MB")
-
-#Test
-if __name__ == "__main__":
-    os_ = DigitalProduct("D001", "Operating System", 99.0, 100, 4096)
-    os_.display_information()
