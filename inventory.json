@@ -1,26 +1,54 @@
 [
     {
-        "product_id": "P001",
-        "name": "Keyboard",
-        "price": 49.99,
-        "stock_quantity": 20,
-        "type": "physical",
-        "weight": 0.8
-    },
-    {
-        "product_id": "D001",
-        "name": "Python Course",
-        "price": 29.99,
-        "stock_quantity": 100,
-        "type": "digital",
-        "download_size": 500.0
-    },
-    {
         "product_id": "123",
-        "name": "Keyboard",
-        "price": 123.0,
-        "stock_quantity": 2,
+        "name": "Laptop",
+        "price": 1500.0,
+        "stock_quantity": 3,
+        "supplier": {
+            "supplier_id": "HP",
+            "name": "HP",
+            "contact_email": "hp@hp.com"
+        },
         "type": "physical",
-        "weight": 1.1
+        "weight": 2.1
+    },
+    {
+        "product_id": "4553",
+        "name": "Windows11",
+        "price": 500.0,
+        "stock_quantity": 3213,
+        "supplier": {
+            "supplier_id": "W2H23",
+            "name": "Windows",
+            "contact_email": "ms@ms.com"
+        },
+        "type": "digital",
+        "download_size": 4210.0
+    },
+    {
+        "product_id": "123124",
+        "name": "U",
+        "price": 14.0,
+        "stock_quantity": 1,
+        "supplier": {
+            "supplier_id": "I",
+            "name": "",
+            "contact_email": "asdf"
+        },
+        "type": "physical",
+        "weight": 123.0
+    },
+    {
+        "product_id": "12",
+        "name": "Fe",
+        "price": 12.0,
+        "stock_quantity": 22,
+        "supplier": {
+            "supplier_id": "Pi",
+            "name": "Pi",
+            "contact_email": "pi@pi.com"
+        },
+        "type": "digital",
+        "download_size": 123124.0
     }
 ]

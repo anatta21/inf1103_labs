@@ -4,11 +4,19 @@ from abc import ABC, abstractmethod
 class Product(ABC):
     """Abstract base class for all products."""
 
-    def __init__(self, product_id, name, price, stock_quantity):
+    def __init__(
+        self,
+        product_id,
+        name,
+        price,
+        stock_quantity,
+        supplier
+    ):
         self._product_id = product_id
         self._name = name
         self._price = price
         self._stock_quantity = stock_quantity
+        self._supplier = supplier
 
     @property
     def product_id(self):
@@ -26,8 +34,13 @@ class Product(ABC):
     def stock_quantity(self):
         return self._stock_quantity
 
+    @property
+    def supplier(self):
+        return self._supplier
+
     def update_stock(self, change):
         """Update product stock quantity."""
+
         if self._stock_quantity + change < 0:
             raise ValueError("Stock cannot go below zero.")
 
@@ -35,6 +48,7 @@ class Product(ABC):
 
     def display_information(self):
         """Display common product information."""
+
         print(
             f"ID: {self._product_id} | "
             f"Name: {self._name} | "
@@ -42,13 +56,17 @@ class Product(ABC):
             f"Stock: {self._stock_quantity}"
         )
 
+        self._supplier.display_information()
+
     def to_dict(self):
         """Convert common product information into a dictionary."""
+
         return {
             "product_id": self._product_id,
             "name": self._name,
             "price": self._price,
-            "stock_quantity": self._stock_quantity
+            "stock_quantity": self._stock_quantity,
+            "supplier": self._supplier.to_dict()
         }
 
     @abstractmethod

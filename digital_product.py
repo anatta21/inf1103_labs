@@ -1,4 +1,3 @@
-
 from product_oop import Product
 
 
@@ -7,8 +6,23 @@ class DigitalProduct(Product):
 
     TYPE = "digital"
 
-    def __init__(self, product_id, name, price, stock_quantity, download_size):
-        super().__init__(product_id, name, price, stock_quantity)
+    def __init__(
+        self,
+        product_id,
+        name,
+        price,
+        stock_quantity,
+        download_size,
+        supplier
+    ):
+        super().__init__(
+            product_id,
+            name,
+            price,
+            stock_quantity,
+            supplier
+        )
+
         self.__download_size = download_size
 
     def get_download_size(self):
@@ -19,13 +33,16 @@ class DigitalProduct(Product):
 
     def display_information(self):
         super().display_information()
+
         print(
-            f"   Type: Digital | Download size: "
+            f" Type: Digital | Download size: "
             f"{self.__download_size} MB"
         )
 
     def to_dict(self):
         data = super().to_dict()
+
         data["type"] = self.TYPE
         data["download_size"] = self.__download_size
+
         return data

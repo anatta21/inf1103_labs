@@ -1,13 +1,29 @@
-from product_oop import Product
 from can_be_shipped import CanBeShipped
+from product_oop import Product
+
 
 class PhysicalProduct(Product, CanBeShipped):
     """A product that requires physical delivery."""
 
     TYPE = "physical"
 
-    def __init__(self, product_id, name, price, stock_quantity, weight):
-        super().__init__(product_id, name, price, stock_quantity)
+    def __init__(
+        self,
+        product_id,
+        name,
+        price,
+        stock_quantity,
+        weight,
+        supplier
+    ):
+        super().__init__(
+            product_id,
+            name,
+            price,
+            stock_quantity,
+            supplier
+        )
+
         self.__weight = weight
 
     def get_weight(self):
@@ -21,11 +37,14 @@ class PhysicalProduct(Product, CanBeShipped):
 
     def display_information(self):
         super().display_information()
-        print(f"   Type: Physical | Weight: {self.__weight} kg")
-        print(f"   Shipping Cost: ${self.calculate_shipping_cost():.2f}")
+
+        print(f" Type: Physical | Weight: {self.__weight} kg")
+        print(f" Shipping Cost: ${self.calculate_shipping_cost():.2f}")
 
     def to_dict(self):
         data = super().to_dict()
+
         data["type"] = self.TYPE
         data["weight"] = self.__weight
+
         return data

@@ -1,4 +1,3 @@
-
 import json
 import os
 
@@ -51,11 +50,28 @@ class Inventory:
             )
 
     def load(self, filename):
-        if not os.path.exists(filename):
-            return
+         if not os.path.exists(filename):
+             return
 
-        with open(filename) as file:
-            data = json.load(file)
+         with open(filename) as file:
+             content = file.read().strip()
 
-        for item in data:
-            self.add_product(product_from_dict(item))
+         if not content:
+             return
+
+         data = json.loads(content)
+
+         for item in data:
+             self.add_product(product_from_dict(item))
+
+    def remove_product(self, product_id):
+        """Remove a product from the inventory."""
+        if product_id not in self._products:
+            raise ValueError("Product not found.")
+
+        del self._products[product_id]
+
+
+    def find_product(self, product_id):
+        """Find a product by its ID."""
+        return self._products.get(product_id)
